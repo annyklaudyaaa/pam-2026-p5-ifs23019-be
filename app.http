@@ -12,9 +12,9 @@ POST {{BaseUrl}}/auth/register
 Content-Type: application/json
 
 {
-  "name": "Tester",
-  "username": "tester",
-  "password": "tester"
+  "name": "Anny",
+  "username": "anny",
+  "password": "anny"
 }
 
 ### Masuk ke layanan
