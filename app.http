@@ -12,9 +12,9 @@ POST {{BaseUrl}}/auth/register
 Content-Type: application/json
 
 {
-  "name": "Anny",
-  "username": "anny",
-  "password": "anny"
+  "name": "klaudya",
+  "username": "klaudya",
+  "password": "klaudya"
 }
 
 ### Masuk ke layanan
@@ -23,8 +23,8 @@ POST {{BaseUrl}}/auth/login
 Content-Type: application/json
 
 {
-  "username": "tester",
-  "password": "tester"
+  "username": "audy",
+  "password": "audy"
 }
 
 > {%
@@ -77,9 +77,9 @@ Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-  "name": "Anny Klaudya Update",
-  "username": "anny",
-  "about": "Mahasiswa IT Del yang sedang belajar Mobile Development."
+  "name": "helgaaa",
+  "username": "helgazeef",
+  "about": "gatauuu"
 }
 
 ### Mengubah kata sandi akun
@@ -89,8 +89,8 @@ Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-  "newPassword": "tester",
-  "password": "tester"
+  "newPassword": "audy",
+  "password": "audy"
 }
 
 ### Mengubah photo profile
@@ -136,6 +136,11 @@ Content-Type: application/json
   "description": "Menyelesaikan modul 5 authentication",
   "urgency": "High"
 }
+
+> {%
+    // Script ini mengambil todoId dari response data dan menyimpannya ke variabel global
+    client.global.set("todoId", response.body.data.todoId);
+%}
 
 ### Mengambil todo dengan id
 # @name GetTodoById
