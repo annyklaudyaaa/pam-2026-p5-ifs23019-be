@@ -10,13 +10,15 @@ data class AuthRequest(
     var username: String = "",
     var password: String = "",
     var newPassword: String = "",
+    var about: String? = null // 1. Tambahkan ini (Fitur Baru)
 ){
     fun toMap(): Map<String, Any?> {
         return mapOf(
             "name" to name,
             "username" to username,
             "password" to password,
-            "newPassword" to newPassword
+            "newPassword" to newPassword,
+            "about" to about // 2. Tambahkan ini agar bisa divalidasi
         )
     }
 
@@ -25,8 +27,8 @@ data class AuthRequest(
             name = name,
             username = username,
             password = password,
+            about = about,
             updatedAt = Clock.System.now()
         )
     }
-
 }

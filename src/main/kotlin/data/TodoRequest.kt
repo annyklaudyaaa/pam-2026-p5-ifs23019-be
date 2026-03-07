@@ -11,6 +11,7 @@ data class TodoRequest(
     var title: String = "",
     var description: String = "",
     var cover: String? = null,
+    var urgency: String = "Low",
     var isDone: Boolean = false,
 ){
     fun toMap(): Map<String, Any?> {
@@ -19,19 +20,21 @@ data class TodoRequest(
             "title" to title,
             "description" to description,
             "cover" to cover,
+            "urgency" to urgency,
             "isDone" to isDone,
         )
     }
 
     fun toEntity(): Todo {
         return Todo(
+            // Pastikan data class Todo (Entity) kamu juga sudah ada field urgency
             userId = userId,
             title = title,
             description = description,
             cover = cover,
+            urgency = urgency,
             isDone = isDone,
             updatedAt = Clock.System.now()
         )
     }
-
 }

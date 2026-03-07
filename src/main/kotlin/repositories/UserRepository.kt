@@ -11,16 +11,11 @@ import java.util.*
 
 class UserRepository : IUserRepository {
     override suspend fun getById(userId: String): User? = suspendTransaction {
-        UserDAO
-            .find { (UserTable.id eq UUID.fromString(userId)) }
-            .limit(1)
-            .map(::userDAOToModel)
-            .firstOrNull()
+        UserDAO.findById(UUID.fromString(userId))?.let(::userDAOToModel)
     }
 
     override suspend fun getByUsername(username: String): User? = suspendTransaction {
-        UserDAO
-            .find { (UserTable.username eq username) }
+        UserDAO.find { (UserTable.username eq username) }
             .limit(1)
             .map(::userDAOToModel)
             .firstOrNull()
@@ -31,6 +26,8 @@ class UserRepository : IUserRepository {
             name = user.name
             username = user.username
             password = user.password
+            photo = user.photo // Tambahkan ini
+            about = user.about // Tambahkan ini agar sinkron dengan fitur baru
             createdAt = user.createdAt
             updatedAt = user.updatedAt
         }
@@ -39,16 +36,14 @@ class UserRepository : IUserRepository {
     }
 
     override suspend fun update(id: String, newUser: User): Boolean = suspendTransaction {
-        val userDAO = UserDAO
-            .find { UserTable.id eq UUID.fromString(id) }
-            .limit(1)
-            .firstOrNull()
+        val userDAO = UserDAO.findById(UUID.fromString(id))
 
         if (userDAO != null) {
             userDAO.name = newUser.name
             userDAO.username = newUser.username
             userDAO.password = newUser.password
             userDAO.photo = newUser.photo
+            userDAO.about = newUser.about // Tambahkan ini untuk update informasi profil
             userDAO.updatedAt = newUser.updatedAt
             true
         } else {
@@ -62,5 +57,4 @@ class UserRepository : IUserRepository {
         }
         rowsDeleted >= 1
     }
-
 }

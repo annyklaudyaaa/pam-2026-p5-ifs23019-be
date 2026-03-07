@@ -77,8 +77,9 @@ Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-  "name": "Tester Update",
-  "username": "tester"
+  "name": "Anny Klaudya Update",
+  "username": "anny",
+  "about": "Mahasiswa IT Del yang sedang belajar Mobile Development."
 }
 
 ### Mengubah kata sandi akun
@@ -117,26 +118,24 @@ Content-Type: application/json
 ## Todos
 ### ---------------------------------------
 
-### Mengambil semua data todo user saat ini
+### Mengambil data todo dengan Pagination dan Filter
+# Parameter: page, perPage, is_finished (true/false), urgency (Low/Medium/High)
 # @name GetTodos
-GET {{BaseUrl}}/todos?search=
+GET {{BaseUrl}}/todos?page=1&perPage=10&is_finished=false&urgency=High&search=
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
-### Menambahkan todo
+### Menambahkan todo dengan Urgency
 # @name PostTodos
 POST {{BaseUrl}}/todos
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-  "title": "Judul Todo",
-  "description": "Deskripsi Todo"
+  "title": "Mengerjakan Praktikum PAM",
+  "description": "Menyelesaikan modul 5 authentication",
+  "urgency": "High"
 }
-
-> {%
-    client.global.set("todoId", response.body.data.todoId);
-%}
 
 ### Mengambil todo dengan id
 # @name GetTodoById
@@ -144,15 +143,16 @@ GET {{BaseUrl}}/todos/{{todoId}}
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
-### Mengubah todo
+### Mengubah todo (termasuk status dan urgency)
 # @name PutTodo
 PUT {{BaseUrl}}/todos/{{todoId}}
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-  "title": "Judul Todo",
-  "description": "Deskripsi Todo",
+  "title": "Mengerjakan Praktikum PAM",
+  "description": "Menyelesaikan modul 5 authentication",
+  "urgency": "Medium",
   "isDone": true
 }
 
@@ -168,6 +168,12 @@ Content-Type: image/png
 
 < ./uploads/examples/anny.png
 --WebAppBoundary--
+
+### Mengambil statistik todo (Total, Selesai, Belum Selesai)
+# @name GetTodoStats
+GET {{BaseUrl}}/todos/stats
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
 
 ### Mengambil cover todo
 # @name GetTodoCover
